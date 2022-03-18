@@ -10,11 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.register = void 0;
-//import User, { IUser } from "../models/user";
+const database_1 = require("../database");
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.body);
-    return res
-        .status(200)
-        .json({ msg: "Hey" });
+    try {
+        const response = yield database_1.pool.query('SELECT * FROM users');
+        return res.status(200).json(response.rows);
+    }
+    catch (e) {
+        console.log(e);
+        return res.status(500).json('Internal Server error');
+    }
 });
 exports.register = register;
