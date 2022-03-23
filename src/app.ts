@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors';
 
-import loginRoutes from './routes/login.routes';
+import loginRoutes from './routes/login.route';
 
 
 const app = express();
@@ -14,11 +14,8 @@ app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-
+// routes
 app.use(loginRoutes);
 
-app.get('/', (req, res) => {
-  return res.send(`The API is at http://localhost:${app.get('port')}`);
-})
 
 export default app;
