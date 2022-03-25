@@ -1,7 +1,7 @@
-import express from 'express'
+import express from 'express';
 import cors from 'cors';
 
-import loginRoutes from './routes/login.route';
+import loginRoutes from './login/aplication/routes/login.route';
 
 
 const app = express();
