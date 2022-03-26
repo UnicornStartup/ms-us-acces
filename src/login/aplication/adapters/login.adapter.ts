@@ -11,7 +11,7 @@ export class LoginAdapter {
         return this.dtoToResponse(this.useCase.execute(loginRequestBodyView.toUser(loginRequestBodyView)));
     }
 
-    private dtoToResponse(userDTO: User): LoginResponseBodyView {
+    private dtoToResponse(userDTO: Promise<User>): LoginResponseBodyView {
         return new LoginResponseBodyView();
     }
 
