@@ -4,15 +4,14 @@ import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "../models/User";
 
 export class LoginUseCase {
-    
+
     private loginInterfaceImpl = new LoginInterfaceImpl();
 
-    public execute (user: User) : User {
-        return this.toUser(this.loginInterfaceImpl.getLogin(user));
+    public async execute(user: User): Promise<User> {
+        return this.toUser(await this.loginInterfaceImpl.getLogin(user));
     }
 
-    private toUser(userDTO: UserDTO): User{
+    private toUser(userDTO: UserDTO): User {
         return new UserDTOBuilder().toUser(userDTO);
     }
-    
 }

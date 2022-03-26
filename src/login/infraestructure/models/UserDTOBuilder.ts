@@ -20,63 +20,64 @@ export class UserDTOBuilder {
         };
     }
 
-    id(id: number): UserDTOBuilder {
+    public id(id: number): UserDTOBuilder {
         this.userDTO.id = id;
         return this;
     }
 
-    uuid(uuid: string): UserDTOBuilder {
+    public uuid(uuid: string): UserDTOBuilder {
         this.userDTO.uuid = uuid;
         return this;
     }
 
-    token (token: string): UserDTOBuilder{
+    public token(token: string): UserDTOBuilder {
         this.userDTO.token = token;
         return this;
     }
 
-    email(email: string): UserDTOBuilder {
+    public email(email: string): UserDTOBuilder {
         this.userDTO.email = email;
         return this;
     }
 
-    username(username: string): UserDTOBuilder {
+    public username(username: string): UserDTOBuilder {
         this.userDTO.username = username;
         return this;
     }
 
-    password(password: string): UserDTOBuilder {
+    public password(password: string): UserDTOBuilder {
         this.userDTO.password = password;
         return this;
     }
 
-    registrationTimestamp(registrationTimestamp: number): UserDTOBuilder {
+    public registrationTimestamp(registrationTimestamp: number): UserDTOBuilder {
         this.userDTO.registrationTimestamp = registrationTimestamp;
         return this;
     }
 
-    lastAccesTimestamp(lastAccesTimestamp: number): UserDTOBuilder {
+    public lastAccesTimestamp(lastAccesTimestamp: number): UserDTOBuilder {
         this.userDTO.lastAccesTimestamp = lastAccesTimestamp;
         return this;
     }
 
-    banned(banned: boolean): UserDTOBuilder {
+    public banned(banned: boolean): UserDTOBuilder {
         this.userDTO.banned = banned;
         return this;
     }
 
-    role(role: string): UserDTOBuilder {
+    public role(role: string): UserDTOBuilder {
         this.userDTO.role = role;
         return this;
     }
 
-    build(): UserDTO {
+    public build(): UserDTO {
         return this.userDTO;
     }
 
-    toUser(userDTO: UserDTO): User {
+    public toUser(userDTO: UserDTO): User {
         return new UserBuilder()
             .uuid(userDTO.uuid)
+            .token(userDTO.token)
             .email(userDTO.email)
             .username(userDTO.username)
             .password(userDTO.password)
