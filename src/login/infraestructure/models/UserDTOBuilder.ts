@@ -2,12 +2,14 @@ import { User } from "../../domain/models/User";
 import { UserBuilder } from "../../domain/models/UserBuilder";
 import { UserDTO } from "./UserDTO";
 
-export class UserDTOBuilder{
+export class UserDTOBuilder {
     private readonly userDTO: UserDTO;
 
     constructor() {
         this.userDTO = {
+            id: -1,
             uuid: "",
+            token: "",
             email: "",
             username: "",
             password: "",
@@ -18,8 +20,18 @@ export class UserDTOBuilder{
         };
     }
 
+    id(id: number): UserDTOBuilder {
+        this.userDTO.id = id;
+        return this;
+    }
+
     uuid(uuid: string): UserDTOBuilder {
         this.userDTO.uuid = uuid;
+        return this;
+    }
+
+    token (token: string): UserDTOBuilder{
+        this.userDTO.token = token;
         return this;
     }
 
