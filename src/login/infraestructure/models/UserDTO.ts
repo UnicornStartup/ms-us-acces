@@ -3,7 +3,9 @@ import { UserBuilder } from "../../domain/models/UserBuilder";
 
 export interface UserDTO {
 
+    id: number;
     uuid: string;
+    token: string;
     email: string;
     username: string;
     password: string;

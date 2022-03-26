@@ -1,3 +1,4 @@
+import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "./User";
 
 export class UserBuilder {
@@ -7,6 +8,7 @@ export class UserBuilder {
         this.user = {
             id: -1,
             uuid: "",
+            token: "",
             email: "",
             username: "",
             password: "",
@@ -24,6 +26,11 @@ export class UserBuilder {
 
     uuid(uuid: string): UserBuilder {
         this.user.uuid = uuid;
+        return this;
+    }
+
+    token(token: string): UserBuilder{
+        this.user.token = token;
         return this;
     }
 
