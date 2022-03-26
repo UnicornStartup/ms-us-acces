@@ -9,7 +9,7 @@ export class UserDTOBuilder {
         this.userDTO = {
             id: -1,
             uuid: "",
-            token: "hola",
+            token: "",
             email: "",
             username: "",
             password: "",

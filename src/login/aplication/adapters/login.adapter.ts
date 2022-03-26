@@ -8,6 +8,7 @@ export class LoginAdapter {
     private useCase: LoginUseCase = new LoginUseCase()
 
     public async adapt(loginRequestBodyView: LoginRequestBodyView): Promise<LoginResponseBodyView> {
+        //TODO no deberia unicamente adaptar y ser routes que llame a usecase.execute?
         return this.userToResponse(await this.useCase.execute(loginRequestBodyView.toUser(loginRequestBodyView)));
     }
 

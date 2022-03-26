@@ -19,6 +19,7 @@ export class LoginInterfaceImpl implements LoginRepository {
     private toDao(rs: QueryResult<any>): UserDTO {
         return new UserDTOBuilder()
             .id(rs.rows[0]["u_id"])
+            .token("token")
             .uuid(rs.rows[0]["u_code"])
             .email(rs.rows[0]["u_email"])
             .username(rs.rows[0]["u_username"])
