@@ -11,12 +11,12 @@ export class LoginInterfaceImpl implements LoginRepository {
 
     async getLogin(user: User): Promise<UserDTO> {
         try {
-        
-            const result = await pool.query('SELECT * FROM users WHERE u_email = $1 AND u_password = $2', [user.email, user.password]);
+            //TODO cambiar query
+            const result = await pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [user.email, user.password]);
             return this.toDao(result)
             
         } catch (e) {
-            throw new Error("Database getLogin error");
+            throw Error((e as Error).message);
         }
     }
 
