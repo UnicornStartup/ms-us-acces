@@ -7,8 +7,8 @@ export class LoginUseCase {
     
     private loginInterfaceImpl = new LoginInterfaceImpl();
 
-    public execute (user: User) : User {
-        return this.toUser(this.loginInterfaceImpl.getLogin(user));
+    public async execute (user: User) : Promise<User> {
+        return this.toUser(await this.loginInterfaceImpl.getLogin(user));
     }
 
     private toUser(userDTO: UserDTO): User{
