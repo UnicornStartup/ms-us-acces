@@ -7,12 +7,12 @@ export class LoginAdapter {
 
     private useCase: LoginUseCase = new LoginUseCase()
 
-    public adapt(loginRequestBodyView: LoginRequestBodyView): LoginResponseBodyView {
-        return this.dtoToResponse(this.useCase.execute(loginRequestBodyView.toUser(loginRequestBodyView)));
+    public async adapt(loginRequestBodyView: LoginRequestBodyView): Promise<LoginResponseBodyView> {
+        return this.userToResponse(await this.useCase.execute(loginRequestBodyView.toUser(loginRequestBodyView)));
     }
 
-    private dtoToResponse(userDTO: Promise<User>): LoginResponseBodyView {
-        return new LoginResponseBodyView();
+    private userToResponse(user: User): LoginResponseBodyView {
+        return new LoginResponseBodyView(user.token);
     }
 
 }

@@ -1,4 +1,3 @@
-import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "./User";
 
 export class UserBuilder {
@@ -19,7 +18,7 @@ export class UserBuilder {
         };
     }
 
-    id(id: number): UserBuilder{
+    id(id: number): UserBuilder {
         this.user.id = id;
         return this;
     }
@@ -29,7 +28,7 @@ export class UserBuilder {
         return this;
     }
 
-    token(token: string): UserBuilder{
+    token(token: string): UserBuilder {
         this.user.token = token;
         return this;
     }

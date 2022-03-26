@@ -10,10 +10,10 @@ export class LoginRequestBodyView {
     this.password = password;
   }
 
-  toUser(loginRequestBodyView : LoginRequestBodyView): User {
+  toUser(loginRequestBodyView: LoginRequestBodyView): User {
     return new UserBuilder()
-    .email(loginRequestBodyView.email)
-    .password(loginRequestBodyView.password)
-    .build();
-    }
+      .email(loginRequestBodyView.email)
+      .password(loginRequestBodyView.password)
+      .build();
   }
+}
