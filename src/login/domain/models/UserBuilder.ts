@@ -18,57 +18,57 @@ export class UserBuilder {
         };
     }
 
-    id(id: number): UserBuilder {
+    public id(id: number): UserBuilder {
         this.user.id = id;
         return this;
     }
 
-    uuid(uuid: string): UserBuilder {
+    public uuid(uuid: string): UserBuilder {
         this.user.uuid = uuid;
         return this;
     }
 
-    token(token: string): UserBuilder {
+    public token(token: string): UserBuilder {
         this.user.token = token;
         return this;
     }
 
-    email(email: string): UserBuilder {
+    public email(email: string): UserBuilder {
         this.user.email = email;
         return this;
     }
 
-    username(username: string): UserBuilder {
+    public username(username: string): UserBuilder {
         this.user.username = username;
         return this;
     }
 
-    password(password: string): UserBuilder {
+    public password(password: string): UserBuilder {
         this.user.password = password;
         return this;
     }
 
-    registrationTimestamp(registrationTimestamp: number): UserBuilder {
+    public registrationTimestamp(registrationTimestamp: number): UserBuilder {
         this.user.registrationTimestamp = registrationTimestamp;
         return this;
     }
 
-    lastAccesTimestamp(lastAccesTimestamp: number): UserBuilder {
+    public lastAccesTimestamp(lastAccesTimestamp: number): UserBuilder {
         this.user.lastAccesTimestamp = lastAccesTimestamp;
         return this;
     }
 
-    banned(banned: boolean): UserBuilder {
+    public banned(banned: boolean): UserBuilder {
         this.user.banned = banned;
         return this;
     }
 
-    role(role: string): UserBuilder {
+    public role(role: string): UserBuilder {
         this.user.role = role;
         return this;
     }
 
-    build(): User {
+    public build(): User {
         return this.user;
     }
 }

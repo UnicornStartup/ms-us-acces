@@ -1,5 +1,4 @@
 export interface UserDTO {
-
     id: number;
     uuid: string;
     token: string;

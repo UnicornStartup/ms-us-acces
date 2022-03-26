@@ -8,7 +8,7 @@ import { UserDTOBuilder } from "../models/UserDTOBuilder";
 
 export class LoginInterfaceImpl implements LoginRepository {
 
-    async getLogin(user: User): Promise<UserDTO> {
+    public async getLogin(user: User): Promise<UserDTO> {
         try {
             return this.toDao(await pool.query('SELECT * FROM users WHERE u_email = $1 AND u_password = $2', [user.email, user.password]));
         } catch (e) {
@@ -16,7 +16,7 @@ export class LoginInterfaceImpl implements LoginRepository {
         }
     }
 
-    toDao(rs: QueryResult<any>): UserDTO {
+    private toDao(rs: QueryResult<any>): UserDTO {
         return new UserDTOBuilder()
             .id(rs.rows[0]["u_id"])
             .uuid(rs.rows[0]["u_code"])
