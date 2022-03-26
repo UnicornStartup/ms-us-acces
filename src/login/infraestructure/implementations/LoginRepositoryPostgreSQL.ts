@@ -9,19 +9,19 @@ import { UserDTOBuilder } from "../models/UserDTOBuilder";
 
 export class LoginInterfaceImpl implements LoginRepository {
 
-    getLogin(user: User): UserDTO {
+    async getLogin(user: User): Promise<UserDTO> {
         try {
-            /*
-            await pool.query('SELECT * FROM users WHERE u_email = $1 AND u_password = $2', [user.email, user.password]);
-            return this.toDao(result)*/
-            return this.toDao();
+        
+            const result = await pool.query('SELECT * FROM users WHERE u_email = $1 AND u_password = $2', [user.email, user.password]);
+            return this.toDao(result)
             
         } catch (e) {
             throw new Error("Database getLogin error");
         }
     }
 
-    toDao(): UserDTO {
+    toDao(rs: QueryResult<any>): UserDTO {
+        console.log(rs.rows);
         return new UserDTOBuilder()
         .uuid("5d340b06-0281-4de6-a53a-a7736c2612d0")
         .email("email@email.com")
