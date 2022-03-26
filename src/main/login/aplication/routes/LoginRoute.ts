@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import { LoginAdapter } from '../adapters/login.adapter';
+import { LoginAdapter } from '../adapters/LoginAdapter';
 import { LoginRequestBodyView } from '../models/LoginRequestBodyView';
-
 const router = Router();
 
 const adapter = new LoginAdapter();
