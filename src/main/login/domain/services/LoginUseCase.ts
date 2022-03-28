@@ -8,9 +8,9 @@ export class LoginUseCase {
 
     private loginInterfaceImpl = new LoginInterfaceImpl();
 
-    public async execute(user: User): Promise<UserDTO | HandledError> {
-        let loginTemp = await this.loginInterfaceImpl.getLogin(user);
-        return isError(loginTemp)? loginTemp as HandledError : this.toUser(loginTemp as UserDTO);
+    public async execute(email: string, password: string): Promise<UserDTO | HandledError> {
+        let loginTemp = await this.loginInterfaceImpl.getLogin(email, password);
+        return isError(loginTemp) ? loginTemp as HandledError : this.toUser(loginTemp as UserDTO);
     }
 
     private toUser(userDTO: UserDTO): User {

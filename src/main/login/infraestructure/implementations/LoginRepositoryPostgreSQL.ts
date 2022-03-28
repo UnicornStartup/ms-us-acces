@@ -1,18 +1,17 @@
 import { QueryResult } from "pg";
 import { pool } from "../../../database";
 import { ErrorMessages, HandledError } from "../../../shared/models/HandledError";
-import { User } from "../../domain/models/User";
 import { LoginRepository } from "../../domain/repository/LoginRepository";
 import { UserDTO } from "../models/UserDTO";
 import { UserDTOBuilder } from "../models/UserDTOBuilder";
 
 export class LoginInterfaceImpl implements LoginRepository {
 
-    public async getLogin(user: User): Promise<UserDTO | HandledError> {
+    public async getLogin(email: string, password: string): Promise<UserDTO | HandledError> {
         try {
             return this.validate(await pool.query(
                 'SELECT * FROM users WHERE u_email = $1 AND u_password = $2',
-                [user.email, user.password]
+                [email, password]
             ));
         } catch (e) {
             return {

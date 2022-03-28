@@ -1,9 +1,8 @@
 import { Router } from 'express';
 import { ErrorMessages, isError } from '../../../shared/models/HandledError';
 import { LoginAdapter } from '../adapters/LoginAdapter';
-import { LoginRequestBodyView } from '../models/LoginRequestBodyView';
-const router = Router();
 
+const router = Router();
 const adapter = new LoginAdapter();
 
 router.get('/login', async (req, res) => {
@@ -14,7 +13,7 @@ router.get('/login', async (req, res) => {
     });
   }
   try {
-    adapter.adapt(await new LoginRequestBodyView(req.body.email, req.body.password))
+    adapter.adapt(await req.body.email, req.body.password)
       .then(val => {
         console.log(val);
         if (isError(val)) {
@@ -26,8 +25,8 @@ router.get('/login', async (req, res) => {
               });
               break;
             }
-            case (ErrorMessages.DBIncoherenceError): 
-            case ( ErrorMessages.DBError):{
+            case (ErrorMessages.DBIncoherenceError):
+            case (ErrorMessages.DBError): {
               res.status(500).json({
                 error: val.message
               });
