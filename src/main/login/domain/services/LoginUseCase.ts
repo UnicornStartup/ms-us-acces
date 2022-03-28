@@ -1,3 +1,4 @@
+import { HandledError, isError } from "../../../shared/models/HandledError";
 import { LoginInterfaceImpl } from "../../infraestructure/implementations/LoginRepositoryPostgreSQL";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
@@ -7,8 +8,9 @@ export class LoginUseCase {
 
     private loginInterfaceImpl = new LoginInterfaceImpl();
 
-    public async execute(user: User): Promise<User> {
-        return this.toUser(await this.loginInterfaceImpl.getLogin(user));
+    public async execute(user: User): Promise<UserDTO | HandledError> {
+        let loginTemp = await this.loginInterfaceImpl.getLogin(user);
+        return isError(loginTemp)? loginTemp as HandledError : this.toUser(loginTemp as UserDTO);
     }
 
     private toUser(userDTO: UserDTO): User {
