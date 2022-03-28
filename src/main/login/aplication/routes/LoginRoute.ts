@@ -7,23 +7,30 @@ const adapter = new LoginAdapter();
 
 router.get('/login', async (req, res) => {
   if (req.body.email == null || req.body.email == null) {
-    return res.status(400).json("Error: bad parameters.");
+    return res.status(400).json({
+      error: ErrorMessages.RequestBodyError,
+      resolution: "send expected parameters"
+    });
   }
   try {
     adapter.adapt(await new LoginRequestBodyView(req.body.email, req.body.password))
       .then(val => {
+        console.log(val);
         if (isError(val)) {
           switch (val.message) {
             case (ErrorMessages.DBUserNotFound): {
-              res.status(401).json("Error: " + ErrorMessages.DBUserNotFound);
+              res.status(401).json({
+                error: val.message,
+                resolution: val.resolution
+              });
               break;
             }
-            case (ErrorMessages.DBIncoherenceError): {
-              res.status(500).json("Error: " + ErrorMessages.DBIncoherenceError);
-            }
-
-            case (ErrorMessages.DBError): {
-              res.status(500).json("Error: internal database error.");
+            case (ErrorMessages.DBIncoherenceError): 
+            case ( ErrorMessages.DBError):{
+              res.status(500).json({
+                error: val.message
+              });
+              break;
             }
           }
         } else {
@@ -33,7 +40,9 @@ router.get('/login', async (req, res) => {
     return res;
   } catch (e) {
     return res.status(500)
-      .json("Error: internal server error.");
+      .json({
+        error: ErrorMessages.ServerError
+      });
   }
 });
 

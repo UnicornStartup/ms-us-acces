@@ -1,4 +1,3 @@
-import { query } from "express";
 import { QueryResult } from "pg";
 import { pool } from "../../../database";
 import { ErrorMessages, HandledError } from "../../../shared/models/HandledError";
@@ -11,7 +10,10 @@ export class LoginInterfaceImpl implements LoginRepository {
 
     public async getLogin(user: User): Promise<UserDTO | HandledError> {
         try {
-            return this.validate(await pool.query('SELECT * FROM users WHERE u_emaila = $1 AND u_password = $2', [user.email, user.password]));
+            return this.validate(await pool.query(
+                'SELECT * FROM users WHERE u_email = $1 AND u_password = $2',
+                [user.email, user.password]
+            ));
         } catch (e) {
             return {
                 message: ErrorMessages.DBError,
@@ -62,7 +64,5 @@ export class LoginInterfaceImpl implements LoginRepository {
             .banned(rs.rows[0]["u_banned"])
             .role(rs.rows[0]["u_role"])
             .build();
-
-
     }
 }

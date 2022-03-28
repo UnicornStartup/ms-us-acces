@@ -6,7 +6,9 @@ export type HandledError = {
 export const enum ErrorMessages {
     DBUserNotFound = "user was not found.",
     DBIncoherenceError = "incoherence error.",
-    DBError = "database error.",
+    DBError = "internal database error.",
+    ServerError = "internal server error.",
+    RequestBodyError = "error parsing request body.",
     UnexpectedError = "unexpected error"
 }
 
