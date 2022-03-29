@@ -4,6 +4,7 @@ import { ErrorMessages, HandledError } from "../../../shared/models/HandledError
 import { LoginRepository } from "../../domain/repository/LoginRepository";
 import { UserDTO } from "../models/UserDTO";
 import { UserDTOBuilder } from "../models/UserDTOBuilder";
+import "reflect-metadata"
 
 export class LoginInterfaceImpl implements LoginRepository {
 

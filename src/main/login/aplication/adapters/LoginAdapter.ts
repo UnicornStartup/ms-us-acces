@@ -1,11 +1,17 @@
+import { autoInjectable, injectable } from "tsyringe";
 import { HandledError, isError } from "../../../shared/models/HandledError";
 import { User } from "../../domain/models/User";
 import { LoginUseCase } from "../../domain/services/LoginUseCase";
 import { LoginResponseBodyView } from "../models/LoginResponseBodyView";
 
+@injectable()
 export class LoginAdapter {
 
-    private useCase: LoginUseCase = new LoginUseCase()
+    useCase: LoginUseCase;
+
+    constructor(useCase : LoginUseCase){
+        this.useCase = useCase;
+    }
 
     public async adapt(email: string, password: string): Promise<LoginResponseBodyView | HandledError> {
         let loginTempVar = await this.useCase.execute(email, password);
