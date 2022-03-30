@@ -1,17 +1,17 @@
 import { injectable } from "tsyringe";
 import { HandledError, isError } from "../../../shared/models/HandledError";
-import { LoginInterfaceImpl } from "../../infraestructure/implementations/LoginRepositoryPostgreSQL";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "../models/User";
 import "reflect-metadata"
+import LoginRepositoryPostgreSQL from "../../infraestructure/implementations/LoginRepositoryPostgreSQL";
+
 
 @injectable()
-export class LoginUseCase {
+export default class LoginUseCase {
+    loginInterfaceImpl : LoginRepositoryPostgreSQL;
 
-    loginInterfaceImpl : LoginInterfaceImpl;
-
-    constructor(loginInterfaceImpl : LoginInterfaceImpl){
+    constructor(loginInterfaceImpl : LoginRepositoryPostgreSQL){
         this.loginInterfaceImpl = loginInterfaceImpl;
     }
 

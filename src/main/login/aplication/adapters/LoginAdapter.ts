@@ -1,12 +1,11 @@
 import { autoInjectable, injectable } from "tsyringe";
 import { HandledError, isError } from "../../../shared/models/HandledError";
 import { User } from "../../domain/models/User";
-import { LoginUseCase } from "../../domain/services/LoginUseCase";
+import LoginUseCase from "../../domain/services/LoginUseCase";
 import { LoginResponseBodyView } from "../models/LoginResponseBodyView";
 
 @injectable()
-export class LoginAdapter {
-
+export default class LoginAdapter {
     useCase: LoginUseCase;
 
     constructor(useCase : LoginUseCase){

@@ -6,7 +6,7 @@ import { UserDTO } from "../models/UserDTO";
 import { UserDTOBuilder } from "../models/UserDTOBuilder";
 import "reflect-metadata"
 
-export class LoginInterfaceImpl implements LoginRepository {
+export default class LoginRepositoryPostgreSQL implements LoginRepository {
 
     public async getLogin(email: string, password: string): Promise<UserDTO | HandledError> {
         try {
