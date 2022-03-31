@@ -2,7 +2,7 @@ import "reflect-metadata"
 import express from 'express';
 import cors from 'cors';
 import { container } from 'tsyringe';
-import { LoginRoute } from './login/aplication/routes/LoginRoute';
+import LoginRoute from './login/aplication/routes/LoginRoute';
 
 
 const app = express();
