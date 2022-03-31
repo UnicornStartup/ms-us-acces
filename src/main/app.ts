@@ -1,7 +1,8 @@
+import "reflect-metadata"
 import express from 'express';
 import cors from 'cors';
-
-import loginRoutes from './login/aplication/routes/LoginRoute';
+import { container } from 'tsyringe';
+import LoginRoute from './login/aplication/routes/LoginRoute';
 
 
 const app = express();
@@ -15,7 +16,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // routes
-app.use(loginRoutes);
+app.use('/login', container.resolve(LoginRoute).routes());
 
 
 export default app;
