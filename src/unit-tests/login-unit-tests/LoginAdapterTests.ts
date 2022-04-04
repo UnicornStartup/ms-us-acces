@@ -1,21 +1,30 @@
-// import { expect } from 'chai';
-// import 'mocha';
-// import { mock, when, anything, anyNumber, anyString, anyOfClass, instance, anyFunction, between, objectContaining } from 'ts-mockito';
-// import { LoginAdapter } from '../../main/login/aplication/adapters/LoginAdapter';
-// import { LoginRequestBodyView } from '../../main/login/aplication/models/LoginRequestBodyView';
-// import { LoginResponseBodyView } from '../../main/login/aplication/models/LoginResponseBodyView';
-// import { User } from "../../main/login/domain/models/User";
-// import { UserBuilder } from '../../main/login/domain/models/UserBuilder';
+import "reflect-metadata";
+import { expect } from 'chai';
+import { instance, mock, when } from 'ts-mockito';
+import { addSyntheticLeadingComment } from 'typescript';
+import LoginAdapter from '../../main/login/aplication/adapters/LoginAdapter';
+import { LoginRequestBodyView } from '../../main/login/aplication/models/LoginRequestBodyView';
+import { LoginResponseBodyView } from '../../main/login/aplication/models/LoginResponseBodyView';
+import { User } from "../../main/login/domain/models/User";
+import { UserBuilder } from '../../main/login/domain/models/UserBuilder';
+import { HandledError } from "../../main/shared/models/HandledError";
+import LoginUseCase from "../../main/login/domain/services/LoginUseCase";
 
-// const mockedFoo: LoginRequestBodyView = mock(LoginRequestBodyView);
+// when(mockedUseCase.execute("email@email.com", "password")).thenReturn(new Promise((resolve, reject) => {
+//     resolve(new UserBuilder().token("token").build());
+// }));
 
-// when(mockedFoo.toUser(anything())).thenReturn(new UserBuilder().build());
-
-// describe('LoginAdapter.adapt', 
-//   () => { 
-//     it('Should return reponseBodyView', () => { 
-//       const adapter = new LoginAdapter();
-//       const result = adapter.adapt(new LoginRequestBodyView("", ""));
-//       expect(result instanceof LoginResponseBodyView).to.eql(true); 
-//   }); 
-// });
+describe('LoginAdapter.adapt.correct', async () => {
+        it('Should return reponseBodyView', () => {
+            const mockedAdapter: LoginAdapter = mock(LoginAdapter);
+            // const mockedUseCase: LoginUseCase = mock(mockedAdapter.useCase);
+            // const actualInstanceOfMock = instance(mockedUseCase).execute("","");
+            when(mockedAdapter.useCase.execute("email@email.com", "password")).thenReturn(new Promise((resolve, reject) => {
+                resolve(new UserBuilder().token("token").build());
+            }));
+            
+            const result = mockedAdapter.adapt("email@email.com", "password");
+            console.log(result);
+            expect(result instanceof LoginResponseBodyView).to.eql(true);
+        });
+    });
