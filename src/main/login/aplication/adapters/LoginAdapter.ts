@@ -18,7 +18,7 @@ export default class LoginAdapter {
     }
 
     private userToResponse(user: User): LoginResponseBodyView {
-        return new LoginResponseBodyView(user.token);
+        return new LoginResponseBodyView(user.token!!);
     }
 
 }

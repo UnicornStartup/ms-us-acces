@@ -4,18 +4,7 @@ export class UserBuilder {
     private readonly user: User;
 
     constructor() {
-        this.user = {
-            id: -1,
-            uuid: "",
-            token: "",
-            email: "",
-            username: "",
-            password: "",
-            registrationTimestamp: 0,
-            lastAccesTimestamp: 0,
-            banned: false,
-            role: ""
-        };
+        this.user = new User();
     }
 
     public id(id: number): UserBuilder {

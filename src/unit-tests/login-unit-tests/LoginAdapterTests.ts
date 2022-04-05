@@ -22,14 +22,14 @@ describe("LoginAdapter", async () => {
 
     let result = await adapter.adapt(SOME_EMAIL, SOME_PASSWORD);
 
-    
-    assert.isTrue(result instanceof LoginResponseBodyView);
+
+    assert.instanceOf(result, LoginResponseBodyView);
     result = result as LoginResponseBodyView;
     assert.equal(result.token, SOME_TOKEN);
   });
 
   it("Should return HandledError when somethings Worong", async () => {
-  
+
     const error: HandledError = new HandledError(ErrorMessages.UnexpectedError, SOME_RESOLUTION_MESSAGE);
     const useCase: LoginUseCase = mock(LoginUseCase);
     when(useCase.execute(SOME_EMAIL, SOME_PASSWORD)).thenResolve(error);
@@ -37,7 +37,7 @@ describe("LoginAdapter", async () => {
 
     let result = await adapter.adapt(SOME_EMAIL, SOME_PASSWORD);
 
-    assert.isTrue(result instanceof HandledError);
+    assert.instanceOf(result, HandledError);
     result = result as HandledError;
     assert.equal(result.message, ErrorMessages.UnexpectedError);
     assert.equal(result.resolution, SOME_RESOLUTION_MESSAGE);
