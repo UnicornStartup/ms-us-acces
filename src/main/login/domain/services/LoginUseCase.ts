@@ -1,22 +1,21 @@
+import "reflect-metadata"
 import { injectable } from "tsyringe";
 import { HandledError, isError } from "../../../shared/models/HandledError";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "../models/User";
-import "reflect-metadata"
-import LoginRepositoryPostgreSQL from "../../infraestructure/implementations/LoginRepositoryPostgreSQL";
-
+import { LoginRepository } from "../repository/LoginRepository";
 
 @injectable()
 export default class LoginUseCase {
-    loginInterfaceImpl : LoginRepositoryPostgreSQL;
+    repository : LoginRepository;
 
-    constructor(loginInterfaceImpl : LoginRepositoryPostgreSQL){
-        this.loginInterfaceImpl = loginInterfaceImpl;
+    constructor(repository : LoginRepository){
+        this.repository = repository;
     }
 
     public  async execute(email: string, password: string): Promise<User | HandledError> {
-        let loginTemp = await this.loginInterfaceImpl.getLogin(email, password);
+        let loginTemp = await this.repository.getLogin(email, password);
         return isError(loginTemp) ? loginTemp as HandledError : this.toUser(loginTemp as UserDTO);
     }
 
