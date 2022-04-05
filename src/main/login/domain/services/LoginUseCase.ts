@@ -15,7 +15,7 @@ export default class LoginUseCase {
         this.loginInterfaceImpl = loginInterfaceImpl;
     }
 
-    public async execute(email: string, password: string): Promise<UserDTO | HandledError> {
+    public  async execute(email: string, password: string): Promise<User | HandledError> {
         let loginTemp = await this.loginInterfaceImpl.getLogin(email, password);
         return isError(loginTemp) ? loginTemp as HandledError : this.toUser(loginTemp as UserDTO);
     }

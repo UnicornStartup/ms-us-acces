@@ -8,8 +8,8 @@
     "clean": "rimraf dist",
     "start": "node dist/main/index.js",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "full-start": "npm run clean && npm run build && npm start",
-    "build": "tsc"
+    "full-start": "npm run build && npm start",
+    "build": "npm run clean && tsc"
   },
   "repository": {
     "type": "git",
