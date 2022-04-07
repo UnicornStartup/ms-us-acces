@@ -25,6 +25,7 @@ const EXPECTED_PARAMETERS_RESOLUTION = "send expected parameters";
 const SEND_VALID_LOGIN_RESOLUTION = "send valid login";
 const DB_USER_NOT_FOUND_RESOLUTION = "send valid login";
 const INCOHERENCE_ERROR_RESOLUTION = "incoherence db found, check logs";
+var server : any;
 
 describe("LoginController", async () => {
     before(() => {
@@ -32,9 +33,13 @@ describe("LoginController", async () => {
         app.use(cors());
         app.use(express.urlencoded({ extended: false }));
         app.use(express.json());
-        app.listen(3000);
+        server = app.listen(3000);
         const loginController = new LoginController(instance(loginAdapter));
         app.use('/login', loginController.routes());
+    });
+
+    after(()=>{
+        server.close();
     });
     
     it("Should return response with error 'error parsing request body' when email or password are missing", async () => {
@@ -48,39 +53,39 @@ describe("LoginController", async () => {
         assert.equal(result.body.resolution, EXPECTED_PARAMETERS_RESOLUTION);
     });
 
-    // it("Should return response with token when email and password are in body, and user in database exists", async () => {
-    //     when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new LoginResponseBodyView(SOME_TOKEN));
-    //     chai.use(chaiHttp);
-    //     let result = await chai.request(app)
-    //         .get(LOGIN_PATH)
-    //         .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
+    it("Should return response with token when email and password are in body, and user in database exists", async () => {
+        when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new LoginResponseBodyView(SOME_TOKEN));
+        chai.use(chaiHttp);
+        let result = await chai.request(app)
+            .get(LOGIN_PATH)
+            .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
 
-    //     assert.equal(result.body.token, SOME_TOKEN);
-    //     assert.equal(result.status, OK_STATUS);
+        assert.equal(result.body.token, SOME_TOKEN);
+        assert.equal(result.status, OK_STATUS);
 
-    // });
+    });
 
-    // it("Should return user not found error when emaild and password doesn't match with anything on database", async () => {
-    //     when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new HandledError(ErrorMessages.DBUserNotFound, DB_USER_NOT_FOUND_RESOLUTION));
-    //     chai.use(chaiHttp);
-    //     let result = await chai.request(app)
-    //         .get(LOGIN_PATH)
-    //         .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
+    it("Should return user not found error when emaild and password doesn't match with anything on database", async () => {
+        when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new HandledError(ErrorMessages.DBUserNotFound, DB_USER_NOT_FOUND_RESOLUTION));
+        chai.use(chaiHttp);
+        let result = await chai.request(app)
+            .get(LOGIN_PATH)
+            .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
 
-    //     assert.equal(result.status, KO_STATUS_401);
-    //     assert.equal(result.body.error, ErrorMessages.DBUserNotFound);
-    //     assert.equal(result.body.resolution, SEND_VALID_LOGIN_RESOLUTION);
-    // });
+        assert.equal(result.status, KO_STATUS_401);
+        assert.equal(result.body.error, ErrorMessages.DBUserNotFound);
+        assert.equal(result.body.resolution, SEND_VALID_LOGIN_RESOLUTION);
+    });
 
-    // it("Should return database incoherence error when database returns something different as one row or any row", async () => {
-    //     when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new HandledError(ErrorMessages.DBIncoherenceError, INCOHERENCE_ERROR_RESOLUTION));
+    it("Should return database incoherence error when database returns something different as one row or any row", async () => {
+        when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new HandledError(ErrorMessages.DBIncoherenceError, INCOHERENCE_ERROR_RESOLUTION));
 
-    //     chai.use(chaiHttp);
-    //     let result = await chai.request(app)
-    //         .get(LOGIN_PATH)
-    //         .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
+        chai.use(chaiHttp);
+        let result = await chai.request(app)
+            .get(LOGIN_PATH)
+            .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
 
-    //     assert.equal(result.status, KO_STATUS_500);
-    //     assert.equal(result.body.error, ErrorMessages.DBIncoherenceError);
-    // });
+        assert.equal(result.status, KO_STATUS_500);
+        assert.equal(result.body.error, ErrorMessages.DBIncoherenceError);
+    });
 });
