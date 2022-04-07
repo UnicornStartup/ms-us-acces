@@ -4,8 +4,8 @@
   "description": "Hola",
   "main": "index.js",
   "scripts": {
-    "unit-test": "mocha dist/unit-tests/**/*.js --reporter spec",
-    "integration-test": "mocha dist/integration-tests/**/*.js --reporter spec",
+    "unit-test": "npm run build && mocha dist/unit-tests/**/*.js --reporter spec",
+    "integration-test": "npm run build && mocha dist/integration-tests/**/*.js --reporter spec",
     "clean": "rimraf dist",
     "start": "node dist/main/index.js",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",

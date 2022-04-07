@@ -14,8 +14,8 @@ export default class LoginController {
   }
 
   routes() {
-    
-    this.router.get('/',async (req, res) => {
+
+    this.router.get('/', async (req, res) => {
       if (req.body.email == null || req.body.password == null) {
         res.status(400).send(({
           error: ErrorMessages.RequestBodyError,
@@ -35,7 +35,8 @@ export default class LoginController {
                     break;
                   }
                   case (ErrorMessages.DBIncoherenceError):
-                  case (ErrorMessages.DBError): {
+                  case (ErrorMessages.DBError):
+                  case (ErrorMessages.UnexpectedError): {
                     res.status(500).send({
                       error: val.message
                     });
