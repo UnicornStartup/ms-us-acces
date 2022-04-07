@@ -57,7 +57,7 @@ services:
       KAFKA_LOG_DIRS: /kafka/logs
       KAFKA_BROKER_ID: 0
     volumes:
-      - kafka-data:/var/run/docker.sock:/var/run/docker.sock
+      - kafka-data:/var/run/docker.sock
     depends_on:
       - "zookeeper"
   zookeeper:
