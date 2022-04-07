@@ -7,9 +7,9 @@
     "unit-test": "npm run build && mocha dist/unit-tests/**/*.js --reporter spec",
     "integration-test": "npm run build && mocha dist/integration-tests/**/*.js --reporter spec",
     "clean": "rimraf dist",
-    "start": "node dist/main/index.js",
+    "start-dev": "cross-env ENV=dev node dist/main/index.js",
+    "start-pro": "cross-env ENV=pro node dist/main/index.js",
     "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
-    "full-start": "npm run build && npm start",
     "build": "npm run clean && tsc"
   },
   "repository": {
@@ -28,6 +28,8 @@
     "chai": "^4.3.6",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "express-winston": "^4.2.0",
     "mocha": "^9.2.2",

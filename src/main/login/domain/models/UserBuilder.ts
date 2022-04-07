@@ -1,7 +1,7 @@
 import { User } from "./User";
 
 export class UserBuilder {
-    private readonly user: User;
+    private readonly user?: User;
 
     constructor() {
         this.user = new User();

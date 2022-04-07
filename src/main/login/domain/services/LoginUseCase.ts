@@ -1,6 +1,6 @@
 import "reflect-metadata"
 import { inject, injectable } from "tsyringe";
-import { HandledError, isError } from "../../../shared/models/HandledError";
+import { ErrorMessages, HandledError, isError } from "../../../shared/models/HandledError";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "../models/User";
@@ -16,6 +16,7 @@ export default class LoginUseCase {
 
     public  async execute(email: string, password: string): Promise<User | HandledError> {
         let loginTemp = await this.repository.getLogin(email, password);
+        if(loginTemp == undefined) return new HandledError(ErrorMessages.LoginUserNotFound, "send valid login")
         return isError(loginTemp) ? loginTemp as HandledError : this.toUser(loginTemp as UserDTO);
     }
 
