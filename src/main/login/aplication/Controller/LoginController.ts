@@ -4,7 +4,7 @@ import { ErrorMessages, isError } from '../../../shared/models/HandledError';
 import LoginAdapter from '../adapters/LoginAdapter';
 
 @autoInjectable()
-export default class LoginRoute {
+export default class LoginController {
   adapter: LoginAdapter;
   router: Router;
 
@@ -14,10 +14,9 @@ export default class LoginRoute {
   }
 
   routes() {
-    
-    this.router.get('/',async (req, res) => {
-      
-      if (req.body.email == null || req.body.email == null) {
+
+    this.router.get('/', async (req, res) => {
+      if (req.body.email == null || req.body.password == null) {
         res.status(400).send(({
           error: ErrorMessages.RequestBodyError,
           resolution: "send expected parameters"
@@ -36,7 +35,8 @@ export default class LoginRoute {
                     break;
                   }
                   case (ErrorMessages.DBIncoherenceError):
-                  case (ErrorMessages.DBError): {
+                  case (ErrorMessages.DBError):
+                  case (ErrorMessages.UnexpectedError): {
                     res.status(500).send({
                       error: val.message
                     });

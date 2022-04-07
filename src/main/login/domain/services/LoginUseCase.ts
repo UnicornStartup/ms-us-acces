@@ -1,5 +1,5 @@
 import "reflect-metadata"
-import { injectable } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 import { HandledError, isError } from "../../../shared/models/HandledError";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
@@ -10,7 +10,7 @@ import { LoginRepository } from "../repository/LoginRepository";
 export default class LoginUseCase {
     repository : LoginRepository;
 
-    constructor(repository : LoginRepository){
+    constructor(@inject("LoginRepository") repository : LoginRepository){
         this.repository = repository;
     }
 
