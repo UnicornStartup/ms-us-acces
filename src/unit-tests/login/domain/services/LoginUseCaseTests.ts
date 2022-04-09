@@ -1,15 +1,13 @@
 import "reflect-metadata";
-import { assert, expect } from "chai";
+import LoginRepositoryPostgreSQL from "../../../../main/login/infraestructure/repositories/LoginRepositoryPostgreSQL";
+import LoginUseCase from "../../../../main/login/domain/services/LoginUseCase";
+import { assert } from "chai";
 import { mock, when, instance } from "ts-mockito";
-import LoginAdapter from "../../main/login/aplication/adapters/LoginAdapter";
-import LoginUseCase from "../../main/login/domain/services/LoginUseCase";
-import { ErrorMessages, HandledError } from "../../main/shared/models/HandledError";
-import { LoginRepository } from "../../main/login/domain/repository/LoginRepository";
-import LoginRepositoryPostgreSQL from "../../main/login/infraestructure/implementations/LoginRepositoryPostgreSQL";
-import { UserDTOBuilder } from "../../main/login/infraestructure/models/UserDTOBuilder";
-import { UserDTO } from "../../main/login/infraestructure/models/UserDTO";
-import { typeInfo } from "tsyringe/dist/typings/dependency-container";
-import { User } from "../../main/login/domain/models/User";
+import { UserDTO } from "../../../../main/login/infraestructure/models/UserDTO";
+import { UserDTOBuilder } from "../../../../main/login/infraestructure/models/UserDTOBuilder";
+import { LoginRepository } from "../../../../main/login/domain/repositories/LoginRepository";
+import { User } from "../../../../main/login/domain/models/User";
+import { ErrorMessages, HandledError } from "../../../../main/shared/domain/models/HandledError";
 
 const SOME_EMAIL = "email@email.com";
 const SOME_PASSWORD = "password";

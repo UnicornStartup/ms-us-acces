@@ -1,4 +1,4 @@
-import { HandledError } from "../../../shared/models/HandledError";
+import { HandledError } from "../../../shared/domain/models/HandledError";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 
 export interface LoginRepository {

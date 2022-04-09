@@ -1,7 +1,7 @@
-import { Router } from 'express';
-import { autoInjectable, inject } from 'tsyringe';
-import { ErrorMessages, isError } from '../../../shared/models/HandledError';
 import LoginAdapter from '../adapters/LoginAdapter';
+import { Router } from 'express';
+import { autoInjectable } from 'tsyringe';
+import { ErrorMessages, isError } from '../../../shared/domain/models/HandledError';
 
 @autoInjectable()
 export default class LoginController {
@@ -27,7 +27,7 @@ export default class LoginController {
             .then(val => {
               if (isError(val)) {
                 switch (val.message) {
-                  case (ErrorMessages.DBUserNotFound): {
+                  case (ErrorMessages.LoginUserNotFound): {
                     res.status(401).send({
                       error: val.message,
                       resolution: val.resolution

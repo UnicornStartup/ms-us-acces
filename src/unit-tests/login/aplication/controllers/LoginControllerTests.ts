@@ -1,12 +1,12 @@
-import { assert } from "chai";
+import "reflect-metadata";
+import LoginAdapter from "../../../../main/login/aplication/adapters/LoginAdapter";
 import cors from "cors";
 import express from "express";
-import "reflect-metadata";
+import LoginController from "../../../../main/login/aplication/controllers/LoginController";
+import { assert } from "chai";
 import { mock, when, instance } from "ts-mockito";
-import LoginAdapter from "../../main/login/aplication/adapters/LoginAdapter";
-import LoginController from "../../main/login/aplication/Controller/LoginController";
-import { LoginResponseBodyView } from "../../main/login/aplication/models/LoginResponseBodyView";
-import { ErrorMessages, HandledError } from "../../main/shared/models/HandledError";
+import { LoginResponseBodyView } from "../../../../main/login/aplication/models/LoginResponseBodyView";
+import { ErrorMessages, HandledError } from "../../../../main/shared/domain/models/HandledError";
 
 const chai = require('chai');
 const chaiHttp = require('chai-http');
@@ -66,14 +66,14 @@ describe("LoginController", async () => {
     });
 
     it("Should return user not found error when emaild and password doesn't match with anything on database", async () => {
-        when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new HandledError(ErrorMessages.DBUserNotFound, DB_USER_NOT_FOUND_RESOLUTION));
+        when(loginAdapter.adapt(SOME_EMAIL, SOME_PASSWORD)).thenResolve(new HandledError(ErrorMessages.LoginUserNotFound, DB_USER_NOT_FOUND_RESOLUTION));
         chai.use(chaiHttp);
         let result = await chai.request(app)
             .get(LOGIN_PATH)
             .send({ email: SOME_EMAIL, password: SOME_PASSWORD });
 
         assert.equal(result.status, KO_STATUS_401);
-        assert.equal(result.body.error, ErrorMessages.DBUserNotFound);
+        assert.equal(result.body.error, ErrorMessages.LoginUserNotFound);
         assert.equal(result.body.resolution, SEND_VALID_LOGIN_RESOLUTION);
     });
 

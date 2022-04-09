@@ -1,7 +1,7 @@
 import { QueryResult } from "pg";
-import { pool } from "../../../database";
-import { ErrorMessages, HandledError } from "../../../shared/models/HandledError";
-import { LoginRepository } from "../../domain/repository/LoginRepository";
+import { PostgreSqlConnectionPool as pool } from "../../../shared/domain/services/PostgreSqlConnectionPool";
+import { ErrorMessages, HandledError } from "../../../shared/domain/models/HandledError";
+import { LoginRepository } from "../../domain/repositories/LoginRepository";
 import { UserDTO } from "../models/UserDTO";
 import { UserDTOBuilder } from "../models/UserDTOBuilder";
 

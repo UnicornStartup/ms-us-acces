@@ -1,12 +1,12 @@
 import "reflect-metadata";
-import { assert, expect } from "chai";
+import LoginUseCase from "../../../../main/login/domain/services/LoginUseCase";
+import LoginAdapter from "../../../../main/login/aplication/adapters/LoginAdapter";
+import { assert } from "chai";
 import { mock, when, instance } from "ts-mockito";
-import LoginAdapter from "../../main/login/aplication/adapters/LoginAdapter";
-import { UserBuilder } from "../../main/login/domain/models/UserBuilder";
-import LoginUseCase from "../../main/login/domain/services/LoginUseCase";
-import { LoginResponseBodyView } from "../../main/login/aplication/models/LoginResponseBodyView";
-import { User } from "../../main/login/domain/models/User";
-import { ErrorMessages, HandledError } from "../../main/shared/models/HandledError";
+import { UserBuilder } from "../../../../main/login/domain/models/UserBuilder";
+import { User } from "../../../../main/login/domain/models/User";
+import { LoginResponseBodyView } from "../../../../main/login/aplication/models/LoginResponseBodyView";
+import { ErrorMessages, HandledError } from "../../../../main/shared/domain/models/HandledError";
 
 const SOME_EMAIL = "email@email.com";
 const SOME_PASSWORD = "password";
