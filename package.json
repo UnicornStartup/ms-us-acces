@@ -1,15 +1,15 @@
 {
-  "name": "co-owner",
-  "version": "1.0.0",
-  "description": "Hola",
-  "main": "index.js",
+  "name": "ms-us-access",
+  "version": "0.0.1",
+  "description": "Microservice from U.S. used for access (login, register, alternatives)",
+  "main": "Application.js",
   "scripts": {
     "unit-test": "npm run build && mocha dist/unit-tests/**/*.js --reporter spec",
     "integration-test": "npm run build && mocha dist/integration-tests/**/*.js --reporter spec",
     "clean": "rimraf dist",
-    "start-dev": "cross-env ENV=dev node dist/main/index.js",
-    "start-pro": "cross-env ENV=pro node dist/main/index.js",
-    "dev": "tsc-watch --onSuccess \"node dist/index.js\"",
+    "start-dev": "cross-env ENV=dev node dist/main/Application.js",
+    "start-pro": "cross-env ENV=pro node dist/main/Application.js",
+    "dev": "tsc-watch --onSuccess \"node dist/Application.js\"",
     "build": "npm run clean && tsc"
   },
   "repository": {

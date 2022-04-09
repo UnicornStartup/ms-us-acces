@@ -1,10 +1,10 @@
 import "reflect-metadata"
 import { inject, injectable } from "tsyringe";
-import { ErrorMessages, HandledError, isError } from "../../../shared/models/HandledError";
+import { ErrorMessages, HandledError, isError } from "../../../shared/domain/models/HandledError";
 import { UserDTO } from "../../infraestructure/models/UserDTO";
 import { UserDTOBuilder } from "../../infraestructure/models/UserDTOBuilder";
 import { User } from "../models/User";
-import { LoginRepository } from "../repository/LoginRepository";
+import { LoginRepository } from "../repositories/LoginRepository";
 
 @injectable()
 export default class LoginUseCase {
