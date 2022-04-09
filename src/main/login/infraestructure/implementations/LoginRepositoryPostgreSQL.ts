@@ -9,9 +9,9 @@ export default class LoginRepositoryPostgreSQL implements LoginRepository {
   public async getLogin(
     email: string,
     password: string
-  ): Promise<UserDTO | HandledError> {
+  ): Promise<UserDTO | HandledError | undefined> {
     try {
-      return this.validate(
+      return this.toDao(
         await pool.query(
           "SELECT * FROM users WHERE u_email = $1 AND u_password = $2",
           [email, password]
@@ -22,36 +22,9 @@ export default class LoginRepositoryPostgreSQL implements LoginRepository {
     }
   }
 
-  private validate(rs: QueryResult<any>): UserDTO | HandledError {
-    let tempValidationVar: UserDTO | HandledError = {
-      message: ErrorMessages.UnexpectedError,
-    }; //variable temporal para validar el rs
-    switch (rs.rowCount) {
-      case 0: {
-        tempValidationVar = {
-          message: ErrorMessages.DBUserNotFound,
-          resolution: "send valid login",
-        };
-        break;
-      }
+  private toDao(rs: QueryResult<any>): UserDTO | undefined {
+    if (rs.rowCount == 0) return undefined;
 
-      case 1: {
-        tempValidationVar = this.toDao(rs);
-        break;
-      }
-
-      default: {
-        tempValidationVar = {
-          message: ErrorMessages.DBIncoherenceError,
-          resolution: "incoherence db found, check logs", //TODO registrar rs en logs
-        };
-        break;
-      }
-    }
-    return tempValidationVar;
-  }
-
-  private toDao(rs: QueryResult<any>): UserDTO {
     return new UserDTOBuilder()
       .id(rs.rows[0]["u_id"])
       .token("token")

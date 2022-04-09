@@ -9,7 +9,7 @@ export class HandledError {
 }
 
 export const enum ErrorMessages {
-  DBUserNotFound = "user was not found.",
+  LoginUserNotFound = "login error.",
   DBIncoherenceError = "incoherence error.",
   DBError = "internal database error.",
   ServerError = "internal server error.",
