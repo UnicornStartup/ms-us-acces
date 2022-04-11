@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/MoONStterTeixi/Co-Owner#readme",
   "dependencies": {
+    "@opensearch-project/opensearch": "^1.1.0",
     "@testdeck/mocha": "^0.2.0",
     "@types/mocha": "^9.1.0",
     "chai": "^4.3.6",
