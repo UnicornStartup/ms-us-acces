@@ -1,7 +1,7 @@
 import LoginAdapter from '../adapters/LoginAdapter';
 import { Router } from 'express';
 import { autoInjectable } from 'tsyringe';
-import { ErrorMessages, isError } from '../../../shared/domain/models/HandledError';
+import { ErrorMessages, HandledError } from '../../../shared/domain/models/HandledError';
 
 @autoInjectable()
 export default class LoginController {
@@ -14,47 +14,35 @@ export default class LoginController {
   }
 
   routes() {
-
     this.router.get('/', async (req, res) => {
-      if (req.body.email == null || req.body.password == null) {
-        res.status(400).send(({
-          error: ErrorMessages.RequestBodyError,
-          resolution: "send expected parameters"
+      try {
+        validateLoginRequest(req);
+      } catch (e) {
+        res.status((e as HandledError).responseStatus!).send(({
+          error: (e as HandledError).message,
+          resolution: (e as HandledError).resolution
         }));
-      } else {
-        try {
-          await this.adapter.adapt(req.body.email, req.body.password)
-            .then(val => {
-              if (isError(val)) {
-                switch (val.message) {
-                  case (ErrorMessages.LoginUserNotFound): {
-                    res.status(401).send({
-                      error: val.message,
-                      resolution: val.resolution
-                    });
-                    break;
-                  }
-                  case (ErrorMessages.DBIncoherenceError):
-                  case (ErrorMessages.DBError):
-                  case (ErrorMessages.UnexpectedError): {
-                    res.status(500).send({
-                      error: val.message
-                    });
-                    break;
-                  }
-                }
-              } else {
-                res.status(200).send(val);
-              }
-            });
-        } catch (e) {
-          res.status(500).send({
-            error: ErrorMessages.ServerError
-          });
-        }
+        return;
+      }
+      try {
+        await this.adapter.adapt(req.body.email, req.body.password)
+          .then(val => {
+            res.status(200).send(val);
+          }
+          );
+      } catch (e) {
+        res.status((e as HandledError).responseStatus!).send({
+          error: (e as HandledError).message,
+          resolution: (e as HandledError).resolution
+        });
       }
     });
     return this.router;
   }
+}
 
+function validateLoginRequest(req: any) {
+  if (req.body.email == null || req.body.password == null) {
+    throw new HandledError(ErrorMessages.RequestBodyError, "send expected parameters", 400);
+  }
 }

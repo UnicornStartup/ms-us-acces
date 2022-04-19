@@ -6,19 +6,11 @@ import { UserDTO } from "../models/UserDTO";
 import { UserDTOBuilder } from "../models/UserDTOBuilder";
 
 export default class LoginRepositoryPostgreSQL implements LoginRepository {
-  public async getLogin(
-    email: string,
-    password: string
-  ): Promise<UserDTO | HandledError | undefined> {
+  public async getLogin(email: string, password: string): Promise<UserDTO | undefined> {
     try {
-      return this.toDao(
-        await pool.query(
-          "SELECT * FROM users WHERE u_email = $1 AND u_password = $2",
-          [email, password]
-        )
-      );
+      return this.toDao(await pool.query("SELECT * FROM users WHERE u_email = $1 AND u_password = $2", [email, password]));
     } catch (e) {
-      return new HandledError(ErrorMessages.DBError, (e as Error).message);
+      throw new HandledError(ErrorMessages.DBError, (e as Error).message);
     }
   }
 
