@@ -7,7 +7,7 @@
     "unit-test": "npm run build && mocha dist/unit-tests/**/*.js --reporter spec",
     "integration-test": "npm run build && mocha dist/integration-tests/**/*.js --reporter spec",
     "clean": "rimraf dist",
-    "start-dev": "cross-env ENV=dev node dist/main/Application.js",
+    "start-dev": "npm run build && cross-env ENV=dev node dist/main/Application.js",
     "start-pro": "cross-env ENV=pro node dist/main/Application.js",
     "dev": "tsc-watch --onSuccess \"node dist/Application.js\"",
     "build": "npm run clean && tsc"
