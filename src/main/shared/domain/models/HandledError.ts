@@ -14,7 +14,7 @@ export const enum ErrorMessages {
   DBError = "internal database error.",
   ServerError = "internal server error.",
   RequestBodyError = "error parsing request body.",
-  UnexpectedError = "unexpected error",
+  UnexpectedError = "unexpected error"
 }
 
 export const isError = (

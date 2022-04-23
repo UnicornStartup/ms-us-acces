@@ -2,6 +2,8 @@ import LoginAdapter from '../adapters/LoginAdapter';
 import { Router } from 'express';
 import { autoInjectable } from 'tsyringe';
 import { ErrorMessages, isError } from '../../../shared/domain/models/HandledError';
+import { LogServiceOpenSearch } from '../../../shared/infraestructure/LogServiceOpenSearch';
+import { LogModel } from '../../../shared/domain/models/LogModel';
 
 @autoInjectable()
 export default class LoginController {
@@ -14,9 +16,9 @@ export default class LoginController {
   }
 
   routes() {
-
     this.router.get('/', async (req, res) => {
       if (req.body.email == null || req.body.password == null) {
+        //LogServiceOpenSearch.error(new LogModel());
         res.status(400).send(({
           error: ErrorMessages.RequestBodyError,
           resolution: "send expected parameters"
