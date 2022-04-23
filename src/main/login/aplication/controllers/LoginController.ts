@@ -31,9 +31,9 @@ export default class LoginController {
           }
           );
       } catch (e) {
-        res.status((e as HandledError).responseStatus!).send({
-          error: (e as HandledError).message,
-          resolution: (e as HandledError).resolution
+        res.status((e as HandledError).responseStatus == undefined ? 500 : (e as HandledError).responseStatus!).send({
+          error: (e as HandledError).responseStatus == undefined ? "internal server error." : (e as HandledError).message,
+          resolution: (e as HandledError).responseStatus == undefined ? "" : (e as HandledError).resolution
         });
       }
     });

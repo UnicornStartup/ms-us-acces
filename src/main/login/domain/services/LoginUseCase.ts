@@ -8,15 +8,15 @@ import { LoginRepository } from "../repositories/LoginRepository";
 
 @injectable()
 export default class LoginUseCase {
-    repository : LoginRepository;
+    repository: LoginRepository;
 
-    constructor(@inject("LoginRepository") repository : LoginRepository){
+    constructor(@inject("LoginRepository") repository: LoginRepository) {
         this.repository = repository;
     }
 
-    public  async execute(email: string, password: string): Promise<User> {
+    public async execute(email: string, password: string): Promise<User> {
         let loginTemp = await this.repository.getLogin(email, password);
-        if(loginTemp == undefined) throw new HandledError(ErrorMessages.LoginUserNotFound, "send valid login", 401);
+        if (loginTemp == undefined) throw new HandledError(ErrorMessages.LoginUserNotFound, "send valid login", 401);
         return this.toUser(loginTemp as UserDTO);
     }
 

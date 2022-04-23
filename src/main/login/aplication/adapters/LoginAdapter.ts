@@ -7,13 +7,12 @@ import { LoginResponseBodyView } from "../models/LoginResponseBodyView";
 export default class LoginAdapter {
     useCase: LoginUseCase;
 
-    constructor(useCase : LoginUseCase){
+    constructor(useCase: LoginUseCase) {
         this.useCase = useCase;
     }
 
     public async adapt(email: string, password: string): Promise<LoginResponseBodyView> {
-        let loginTempVar = await this.useCase.execute(email, password);
-        return this.userToResponse(loginTempVar as User);
+        return this.userToResponse(await this.useCase.execute(email, password) as User);
     }
 
     private userToResponse(user: User): LoginResponseBodyView {
